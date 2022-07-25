@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: transferrealizationservice
+  profiles:
+    active: production
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: ${spring.application.name}
+  datasource:
+    url: ${transferrealizationservice.datasource.url}
+    username: ${transferrealizationservice.datasource.username}
+    password: ${transferrealizationservice.datasource.password}
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: ${transferrealizationservice.jpa.showsql}
+    database: ${transferrealizationservice.jpa.database}
+    hibernate:
+      ddl-auto: ${transferrealizationservice.jpa.hibernate.ddl-auto}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+eureka:
+  client:
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone=http://localhost:8761/eureka/:
+server:
+  port: 9991
